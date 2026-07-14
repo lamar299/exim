@@ -498,3 +498,10 @@ advanced:
     slack: 4000
   batch_send_interval: 3              # 批次发送间隔（秒）
   feishu_message_separator: "━━━━━━━━━━━━━━━━"
+# ================== 钉钉推送配置 ==================
+notification:
+  enabled: true
+
+  channels:
+    dingtalk:
+      webhook_url: ${{ secrets.DINGTALK_WEBHOOK_URL }}
