@@ -13,7 +13,7 @@ jobs:
                -d '{
                  "msgtype": "text",
                  "text": {
-                   "content": "【TrendRadar 测试】\n配置成功！\nWebhook 正常工作。\n时间：$(date +%Y-%m-%d\ %H:%M:%S)"
+                   "content": "【TrendRadar 测试成功】\nWebhook 正常工作！\n时间：$(date +%Y-%m-%d\ %H:%M:%S)"
                  }
                }' \
                ${{ secrets.DINGTALK_WEBHOOK_URL }}
