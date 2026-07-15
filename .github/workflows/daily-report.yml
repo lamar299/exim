@@ -1,0 +1,17 @@
+name: Daily Yuqing Report
+
+on:
+  schedule:
+    - cron: '0 8 * * *'   # 每天北京时间早上8点运行
+  workflow_dispatch:      # 允许手动运行
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Report
+        env:
+          DINGTALK_WEBHOOK_URL: ${{ secrets.DINGTALK_WEBHOOK_URL }}
+        run: python daily-yuqing.py
