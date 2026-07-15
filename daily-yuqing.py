@@ -1,21 +1,26 @@
 import requests
-import json
+import os
 from datetime import datetime
 
-DINGTALK_WEBHOOK = os.getenv('DINGTALK_WEBHOOK_URL')  # 从 Secret 读取
+webhook = os.getenv('DINGTALK_WEBHOOK_URL')
+
+if not webhook:
+    print("Error: DINGTALK_WEBHOOK_URL not found")
+    exit(1)
 
 def send_to_dingtalk(content):
     data = {
         "msgtype": "text",
         "text": {"content": content}
     }
-    requests.post(DINGTALK_WEBHOOK, json=data)
+    response = requests.post(webhook, json=data)
+    print("DingTalk response:", response.status_code)
 
-print("=== 上市公司舆情简报 ===")
-print(datetime.now().strftime("%Y年%m月%d日"))
+print("=== 客户舆情信息快报 ===")
+print(datetime.now().strftime("信息科技处 %Y年%m月%d日"))
 
-content = """客户舆情信息快报
-信息科技处	""" + datetime.now().strftime("%Y年%m月%d日") + """
+content = f"""客户舆情信息快报
+信息科技处	{datetime.now().strftime('%Y年%m月%d日')}
 
 法律与合规风险方面
 本期公开渠道暂未发现。
@@ -23,10 +28,18 @@ content = """客户舆情信息快报
 经营与财务风险方面
 本期公开渠道暂未发现。
 
-...（其他分类）
+生产经营与行业风险方面
+本期公开渠道暂未发现。
 
-测试成功！Webhook 正常。
+负面舆情发酵类
+本期公开渠道暂未发现。
+
+公司治理与实控人风险方面
+本期公开渠道暂未发现。
+
+债务与融资风险方面
+本期公开渠道暂未发现。
 """
 
 send_to_dingtalk(content)
-print("已推送至钉钉")
+print("报告已推送至钉钉")
