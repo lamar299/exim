@@ -1,0 +1,12 @@
+      - name: DingTalk Direct Test
+        if: success()
+        run: |
+          echo "Sending direct test to DingTalk..."
+          curl -H "Content-Type: application/json" \
+               -d '{
+                 "msgtype": "text",
+                 "text": {
+                   "content": "【测试成功】TrendRadar 配置完成！\n当前时间：$(date)\n如果看到这条消息，说明 webhook 已正常工作。"
+                 }
+               }' \
+               ${{ secrets.DINGTALK_WEBHOOK_URL }}
